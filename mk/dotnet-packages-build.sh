@@ -124,19 +124,19 @@ echo "INFO:	Performing main build tasks..."
 
 run_msbuild()
 {
-  MSBuild.exe /nologo /m /verbosity:minimal /p:Configuration=Release /p:TargetFrameworkVersion=v4.0  /p:Configuration=Release /p:VisualStudioVersion=13.0 $*
+  MSBuild.exe /nologo /m /verbosity:minimal /p:Configuration=Release /p:TargetFrameworkVersion=v4.0 /property:PlatformToolset=v120  /p:Configuration=Release /p:VisualStudioVersion=12.0 $*
   return $?
 }
 
 run_msbuild_nofw()
 {
-  MSBuild.exe /nologo /m /verbosity:minimal /p:Configuration=Release /p:VisualStudioVersion=13.0 $*
+  MSBuild.exe /nologo /m /verbosity:minimal /p:Configuration=Release /property:PlatformToolset=v120 /p:VisualStudioVersion=12.0 $*
   return $?
 }
 
 cd ${SCRATCH_DIR}/xml-rpc.net/src && run_msbuild
 cd ${SCRATCH_DIR}/xml-rpc_v2.net/src && run_msbuild && mv ../bin/CookComputing.XmlRpcV2.dll ../bin/CookComputing.XmlRpcV2_dotnet2.dll && mv ../bin/CookComputing.XmlRpcV2.pdb ../bin/CookComputing.XmlRpcV2_dotnet2.pdb #building for dotnet2
-cd ${SCRATCH_DIR}/log4net/src     && run_msbuild log4net.vs2010.sln
+cd ${SCRATCH_DIR}/log4net/src     && run_msbuild log4net.vs2010.csproj
 cd ${SCRATCH_DIR}/sharpziplib/src && run_msbuild
 cd ${SCRATCH_DIR}/dotnetzip/DotNetZip-src/DotNetZip/Zip && run_msbuild
 cd ${SCRATCH_DIR}/DiscUtils/src   && run_msbuild
